@@ -1,11 +1,27 @@
 # Multi-stage Dockerfile to build Flutter web and serve with nginx
-FROM cirrusci/flutter:stable AS builder
+FROM ghcr.io/cirruslabs/flutter:stable AS builder
+
+# Create a non-root user to avoid running flutter as root
+RUN addgroup -S flutter && adduser -S -G flutter flutter
+
 WORKDIR /app
-COPY . .
+# Copy files as the non-root user
+COPY --chown=flutter:flutter . .
+
+USER flutter
+ENV PUB_CACHE=/home/flutter/.pub-cache
+
+# Install dependencies and build web as non-root
 RUN flutter pub get
 RUN flutter build web --release
 
 FROM nginx:stable-alpine
+
+# Copy built web content into nginx
 COPY --from=builder /app/build/web /usr/share/nginx/html
-EXPOSE 8080
-CMD ["/bin/sh", "-c", "envsubst '$$PORT' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'" ]
+
+# Expose standard HTTP port; map host port as desired (e.g. docker run -p 8080:80)
+EXPOSE 80
+
+# Start nginx (default config serves /usr/share/nginx/html)
+CMD ["nginx", "-g", "daemon off;"]
