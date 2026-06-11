@@ -3,7 +3,7 @@ set -e
 
 PORT=${PORT:-8080}
 
-cat > /etc/nginx/conf.d/default.conf <<'EOF'
+cat > /etc/nginx/conf.d/default.conf <<EOF
 server {
     listen ${PORT} default_server;
     listen [::]:${PORT} default_server;
@@ -11,7 +11,7 @@ server {
     root /usr/share/nginx/html;
 
     location / {
-        try_files $uri $uri/ /index.html;
+        try_files \$uri \$uri/ /index.html;
     }
 
     location = /404.html {
