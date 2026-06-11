@@ -25,7 +25,9 @@ USER flutter
 ENV PUB_CACHE=/home/flutter/.pub-cache
 
 # Install dependencies and build web as non-root
-RUN flutter pub get
+# Add GH SDK location to git safe.directory to avoid "dubious ownership" errors
+RUN git config --global --add safe.directory /sdks/flutter && \
+    flutter pub get
 RUN flutter build web --release
 
 FROM nginx:stable-alpine
