@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: CRM Flutter Web
+    env: docker
+    branch: main
+    dockerfilePath: Dockerfile
+    plan: starter
+    autoDeploy: true
+    serviceDetails:
+      healthCheckPath: /
