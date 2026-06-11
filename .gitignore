@@ -1,0 +1,144 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+/coverage/
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# ── SECURITY: Never commit these files ──────────────────────
+# Environment variables with secrets
+.env
+.env.local
+.env.*.local
+.env.production
+.env.production.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+
+# API Keys and Secrets
+**/secret*.dart
+**/secrets*.dart
+**/*_secret*.json
+**/credentials.json
+**/firebase-key.json
+**/google-services.json
+**/.firebase/
+**/.firebaserc
+
+# Firebase
+**/firebase-config*.json
+**/*serviceAccountKey*.json
+
+# Google Cloud
+**/gcloud-service-key.json
+
+# AWS
+**/.aws/
+**/aws-credentials*
+**/*aws*key*
+
+# Private keys
+**/*.pem
+**/*.key
+**/*.p12
+**/*.p8
+
+# Certificates
+**/*.crt
+**/*.cer
+**/*.der
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# OS
+Thumbs.db
+
+# Cache
+.cache/
+*.cache
+
+# Logs
+logs/
+
+# IDE
+.vscode/
+*.swp
+*.swo
+
+# Build
+dist/
+out/
+
+# Generated
+**/generated/**
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Sensitive configuration
+**/*.config
+**/appsettings.json
+**/appsettings.*.json
+
+# Private documentation
+**/PRIVATE*
+**/SECRET*
+
+# Gradle
+.gradle/
+local.properties
+
+# iOS
+ios/Pods/
+ios/Flutter/Generated.xcconfig
+ios/.symlinks/
+
+# Web
+web/dart_sdk.js
+
