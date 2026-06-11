@@ -5,6 +5,7 @@ WORKDIR /app
 COPY . .
 
 RUN git config --global --add safe.directory /sdks/flutter && \
+    flutter create . --platforms web --overwrite && \
     flutter pub get
 RUN flutter build web --release
 
