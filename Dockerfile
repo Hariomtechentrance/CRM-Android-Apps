@@ -1,12 +1,25 @@
 # Multi-stage Dockerfile to build Flutter web and serve with nginx
 FROM ghcr.io/cirruslabs/flutter:stable AS builder
 
-# Create a non-root user to avoid running flutter as root
-RUN addgroup -S flutter && adduser -S -G flutter flutter
+# Create a non-root user in a portable way (supports Debian/Alpine images)
+RUN set -eux; \
+	if command -v groupadd >/dev/null 2>&1; then \
+		groupadd -r flutter || true; \
+	else \
+		addgroup -S flutter || true; \
+	fi; \
+	if command -v useradd >/dev/null 2>&1; then \
+		useradd -r -g flutter -m -d /home/flutter -s /sbin/nologin flutter || true; \
+	else \
+		adduser -D -H -G flutter -h /home/flutter -s /sbin/nologin flutter || true; \
+	fi; \
+	mkdir -p /home/flutter || true; \
+	chown -R flutter:flutter /home/flutter || true
 
 WORKDIR /app
-# Copy files as the non-root user
-COPY --chown=flutter:flutter . .
+# Copy files as root then set ownership so the following RUN commands can switch to the user
+COPY . .
+RUN chown -R flutter:flutter /app || true
 
 USER flutter
 ENV PUB_CACHE=/home/flutter/.pub-cache
